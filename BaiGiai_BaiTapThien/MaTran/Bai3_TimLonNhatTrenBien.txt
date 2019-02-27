@@ -1,0 +1,97 @@
+#include<stdio.h>
+#include<conio.h>
+#include <limits.h>
+#define MAX 100
+
+void nhapMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+// dung thuat toan Linh Canh 
+// cho Max la so nho nhat trong kieu int sau do so sanh voi tung phan tu trong ma tran
+int timSoLonNhatTrenBien(int a[][MAX], int dong, int cot)
+{
+	int MaxBien = INT_MIN;
+	// max tren dong thi dong chi lay dong 0 va dong n -1, chi cho cot chay;
+	for (int i = 0; i < cot; i++)
+	{		
+		//xet dong 0
+		if (a[0][i] > MaxBien)
+		{
+			MaxBien = a[0][i];
+		}
+		// xet dong cuoi cung
+		if (a[dong - 1][i] > MaxBien)
+		{
+			MaxBien = a[dong - 1][i];
+		}				
+	}
+
+	// max tren cot thi cot chi lay cot 0 va cot n -1, chi cho dong chay;
+	for (int j = 0; j < cot; j++)
+	{
+		//xet dong 0
+		if (a[j][0] > MaxBien)
+		{
+			MaxBien = a[j][0];
+		}
+		// xet dong cuoi cung
+		if (a[j][cot - 1] > MaxBien)
+		{
+			MaxBien = a[j][cot - 1];
+		}
+	}
+	return MaxBien;
+}
+
+int main()
+{
+	int a[MAX][MAX];
+	int dong, cot;
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+
+	nhapMang(a, dong, cot);
+	xuatMang(a, dong, cot);
+
+	int maxBien = timSoLonNhatTrenBien(a, dong, cot);
+	printf_s("\nSo lon nhat tren bien cua ma tran la :  %d", maxBien);
+
+	_getch();
+	return 0;
+}

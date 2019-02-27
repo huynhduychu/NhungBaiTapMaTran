@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<conio.h>
+#define MAX 100
+
+void nhapMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+int tinhTongPhanTuDuong(int a[][MAX], int dong, int cot)
+{
+	int tong = 0;
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{			
+			if (a[i][j] > 0)
+			{
+				tong += a[i][j];
+			}
+		}
+	}
+	return tong;
+}
+
+
+int main()
+{	
+	int a[MAX][MAX];
+	int dong, cot;
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+
+	nhapMang(a, dong, cot);
+	xuatMang(a, dong, cot);
+
+	int tongSoDuong = tinhTongPhanTuDuong(a, dong, cot);
+	printf_s("\nTong cac so duong co trong ma tran la :  %d", tongSoDuong);
+	
+	_getch();
+	return 0;
+}

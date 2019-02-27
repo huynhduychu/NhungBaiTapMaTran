@@ -1,0 +1,102 @@
+#include<stdio.h>
+#include<conio.h>
+#define MAX 100
+
+/*
+so yen ngua la so co gia tri lon nhat tren dong va nho nhat tren cot
+*/
+
+void nhapMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+//ham duyet cot j cua mang a[dong][cot] de xet xem gia tri x co phai la so lon nhat hay khong 
+int lonNhatDong(int a[][MAX], int dong, int cot, int vTDong, int vTcot)
+{
+	int x = a[vTDong][vTcot];
+	for (int j = 0; j < cot; j++)
+	{
+		if (a[vTDong][j] > x) return 0; // khong phai max
+	}
+	return 1;
+}
+
+
+//ham duyet dong i cua mang a[dong][cot] de xet xem gia tri x co phai la so nho nhat hay khong 
+int nhoNhatCot(int a[][MAX], int dong, int cot, int vTDong, int vTCot)
+{
+	int x = a[vTDong][vTCot];
+	for (int i = 0; i < dong; i++)
+	{
+		if (a[i][vTCot] < x) return 0; // không ph?i min
+	}
+	return 1;
+}
+
+int demYenNgua(int a[][MAX], int dong, int cot)
+{
+	int dem = 0;
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			if (lonNhatDong(a, dong, cot, i, j) && nhoNhatCot(a, dong, cot, i, j))
+			{
+				dem++;
+			}
+		}
+	}
+	return dem;
+}
+
+int main()
+{
+	int a[MAX][MAX];
+	int dong, cot;
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+
+	nhapMaTran(a, dong, cot);
+	xuatMaTran(a, dong, cot);
+
+	int demYenNgua = demYenNgua(a, dong, cot);
+	printf_s("\nco tong cong %d so yen ngua trong ma tran", demYenNgua);
+
+	_getch();
+	return 0;
+}

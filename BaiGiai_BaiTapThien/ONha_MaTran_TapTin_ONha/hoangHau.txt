@@ -1,0 +1,20 @@
+Ð?m s? lu?ng giá tr? hoàng h?u trên ma tr?n. M?t ph?n t? du?c g?i là hoàng h?u
+khi nó l?n nh?t trên dòng, trên c?t và hai du?ng chéo di qua nó.
+
+=> G?I Ý:
+vd: Ma tr?n dang xét là 4 x 5
+a[i][j] dang xét là: a[1][2]
++ Xét dòng dang ch?a nó: C? d?nh dòng dang d?ng và c?t ch?y t? 0 cho t?i c?t - 1
++ Xét c?t dang ch?a nó: C? d?nh c?t dang d?ng và dòng ch?y t? 0 cho t?i dòng - 1
++ Xét chéo di t? trên trái xu?ng du?i ph?i: a[0][1], a[1][2], a[2][3], a[3][4]
+=> hình thành 2 du?ng di lên và di xu?ng. di lên thì c?t và dòng cùng gi?m 1, di xu?ng thì c?t và
+dòng cùng tang 1.
++ Xét chéo di t? trên ph?i xu?ng du?i trái: a[0][3], a[1][2], a[2][1], a[3][0]
+=> hình thành 2 du?ng di lên và di xu?ng. Ði lên thì dòng gi?m 1, c?t tang 1. Ði xu?ng thì dòng
+tang 1, c?t gi?m 1.
+
+Bài 347 (*): Ð?m s? lu?ng giá tr? yên ng?a trên ma tr?n. M?t ph?n t? du?c g?i là yên ng?a khi nó
+l?n nh?t trên dòng và nh? nh?t trên c?t.
+
+=> G?I Ý:
+Xét dòng và c?t dang ch?a nó.

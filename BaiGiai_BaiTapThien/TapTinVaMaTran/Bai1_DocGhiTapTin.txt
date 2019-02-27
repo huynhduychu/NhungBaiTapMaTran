@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+#define MAX 100
+
+int kiemTraNguyenTo(int n)
+{
+	if (n < 2)
+	{
+		return 0;
+	}
+	else if (n > 2)
+	{
+		if (n % 2 == 0)
+		{
+			return 0;
+		}
+		for (int i = 3; i <= sqrt((double)n); i += 2)
+		{
+			if (n % i == 0)
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+void XuatMang1Chieu(int a[], int n)
+{
+	printf_s("\n");
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("%d\t", a[i]);
+	}
+}
+
+// r : doc file
+/// w : ghi file neu ma file da co thi se xoa het r ghi moi lai  (neu chua co file thi se tao moi )
+/// a : append ghi file ghi vao cuoi neu file da co 
+
+int main()
+{
+	errno_t file_in;
+	FILE *FileIn;
+
+	file_in = fopen_s(&FileIn, "INPUT.TXT", "r");
+
+	if (!FileIn)
+	{
+		printf_s("Khong ton tai file INPUT.TXT\n");
+		_getch();
+		return 0;
+	}
+
+	int m, n, a[MAX], b[MAX];
+
+	/*char ten[30];
+	fgets(ten, 30, FileIn);*/  /// doc chuoi 
+
+	fscanf_s(FileIn, "%d%d", &m, &n);  // doc so
+	
+	//printf_s("%s", ten);
+	printf_s("\nM : %d", m);
+	printf_s("\nN : %d", n);
+
+	fclose(FileIn);        //// sau khi doc xong thi dong file lai
+
+	int max = m, min = m;
+	n > max ? (max = n) : (min = n);
+	
+	printf_s("\nMin : %d", min);
+	printf_s("\nMax : %d", max);
+	
+	int Max = max;
+	int Min = min;
+
+	int i = 0, dem = 0;
+	while (Min <= Max)
+	{
+		a[i++] = Min++;		
+		dem++;
+	}
+	printf_s("\nNhung phan tu trong doan %d - %d: ", min, max);
+	XuatMang1Chieu(a, dem);
+
+	i = 0;  // gan bien i cho no bang 0 de khoi phai tao them bien moi 
+	int demNT = 0;
+	for (i; i < max; i++)
+	{
+		if (kiemTraNguyenTo(a[i]) == 1)
+		{
+			b[demNT++] = a[i];
+		}
+	}
+
+	printf_s("\nNhung so nguyen to co trong doan  %d - %d", min, max);
+	XuatMang1Chieu(b, demNT);
+
+	/// Mo file
+	errno_t file_out;
+	FILE *FileOut;
+	file_out = fopen_s(&FileOut, "OUTPUT.TXT", "w");
+	// ghi file
+	i = 0;         /// gan lai i = 0 
+	for (i; i < demNT; i++)
+	{
+		fprintf_s(FileOut, "%d\t", b[i]);
+		if (i % 10 == 0)
+		{
+			fprintf_s(FileOut, "\n");
+		}
+	}
+
+	printf_s("\n\nDa them vao file OUTPUT thanh cong ! hay kiem tra file OUTPUT");
+	// dong file
+	fclose(FileOut);
+
+	_getch();
+	return 0;
+}

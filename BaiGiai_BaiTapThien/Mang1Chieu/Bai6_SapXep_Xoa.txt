@@ -1,0 +1,141 @@
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+
+void nhapMang(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("\nnhap phan tu a[%d]: ", i);
+		scanf_s("%d", &a[i]);
+	}
+}
+
+void XuatMang(int a[], int n) {
+	printf("\n");
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d\t", a[i]);
+	}
+}
+
+int kiemTraNguyenTo(int n)
+{
+	if (n < 2)
+	{
+		return 0;
+	}
+	else if (n > 2)
+	{
+		if (n % 2 == 0)
+		{
+			return 0;
+		}
+		for (int i = 3; i <= sqrt((double)n); i += 2)
+		{
+			if (n % i == 0)
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+void trichKhongPhaiNguyenTo(int a[], int b[], int &n, int &m)
+{	
+	int j = 0;
+	int k = 1;
+	for (int i = 0; i < n; i++)
+	{
+		if (kiemTraNguyenTo(a[i]) != 1)
+		{			
+			b[j++] = a[i];
+			k = n - j;
+		}			
+		m = n - k;
+	}
+}
+
+void hoanVi(int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp; 	
+}
+
+void sapXepGiam(int a[], int n)
+{
+	/// dung interchange sort 
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = i + 1; j <= n - 1; j++)
+		{
+			if (a[i] < a[j])
+			{
+				hoanVi(a[i], a[j]);
+			}
+		}
+	}
+}
+
+void xoaPhanTu(int a[], int n, int k)
+{
+	for (int i = k; i < n; i++)
+	{
+		a[i] = a[i + 1];
+		n--;
+	}
+}
+
+void xoaNhungSoNguyenTo(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (kiemTraNguyenTo(a[i]) == 1)
+		{
+			xoaPhanTu(a, n, i);
+			i--;
+		}
+	}
+}
+
+int main()
+{	
+	int n, m;
+
+	int a[10000], b[10000];
+	do
+	{
+		printf_s("\nNhap so phan tu mang n : ");
+		scanf_s("%d", &n);
+		if (n < 0 || n > 1000)
+		{
+			printf_s("so phan tu mang khong duoc am ! xin ban kiem tra lai ");
+		}
+	} while (n < 0 || n > 1000);
+
+	nhapMang(a, n);
+	XuatMang(a, n);
+
+
+	// cau a
+	trichKhongPhaiNguyenTo(a, b, n, m);
+	printf_s("\nMang nhung so khong phai la nguyen to ");
+	XuatMang(b, m);
+	
+	/// cau b
+	sapXepGiam(b, m);
+	printf_s("\nMang b sau khi sap xep giam ");
+	XuatMang(b, m);
+
+	////cau c
+	printf_s("\nMang a ban dau");
+	XuatMang(a, n);
+
+	xoaNhungSoNguyenTo(a, n);
+	printf_s("\nMang a sau khi xoa nhung phan tu la so nguyen : ");
+	XuatMang(a, m);
+	_getch();
+	return 0;
+}

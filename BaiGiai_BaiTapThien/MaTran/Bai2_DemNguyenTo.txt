@@ -1,0 +1,98 @@
+#include<stdio.h>
+#include<conio.h>
+#include <math.h>
+#define MAX 100
+
+void nhapMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+int kiemTraNguyenTo(int n)
+{
+	if (n < 2)
+	{
+		return 0;
+	}
+	else if (n > 2)
+	{
+		if (n % 2 == 0)
+		{
+			return 0;
+		}
+		for (int i = 3; i <= sqrt((double)n); i += 2)
+		{
+			if (n % i == 0)
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+int demSoLuongNguyenTo(int a[][MAX], int dong, int cot)
+{
+	int dem = 0;
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			if (kiemTraNguyenTo(a[i][j]) == 1)
+			{
+				dem++;
+			}
+		}
+	}
+	return dem;
+}
+
+int main()
+{
+	int a[MAX][MAX];
+	int dong, cot;
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+
+	nhapMang(a, dong, cot);
+	xuatMang(a, dong, cot);
+
+	int tongSoNguyenTo = demSoLuongNguyenTo(a, dong, cot);
+	printf_s("\nCo %d so nguyen to trong ma tran", tongSoNguyenTo);
+
+	_getch();
+	return 0;
+}

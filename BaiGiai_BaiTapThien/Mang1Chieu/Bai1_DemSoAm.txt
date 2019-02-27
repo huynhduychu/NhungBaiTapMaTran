@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<conio.h>
+
+void nhapMang(float a[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("\nnhap phan tu a[%d]: ", i);
+		scanf_s("%f", &a[i]);
+	}
+}
+
+void XuatMang(float A[], int n) {
+	printf("\n");
+	for (int i = 0; i<n; i++)
+	{
+		printf("%f\t", A[i]);
+	}
+}
+
+int demSoAm(float a[], int n)
+{
+	int dem = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] < 0)
+		{
+			dem++;
+		}
+	}
+	return dem;
+}
+
+
+int main()
+{
+	float a[100];
+	int n;
+	do
+	{
+		printf_s("\nNhap so phan tu mang n : ");
+		scanf_s("%d", &n);
+		if (n < 0)
+		{
+			printf_s("so phan tu mang khong duoc am ! xin ban kiem tra lai ");
+		}
+	} while (n < 0);
+	
+	nhapMang(a, n);
+	XuatMang(a, n);
+
+	int soAm = demSoAm(a, n);
+	printf_s("\nSo luong so am co trong mang la %d", soAm);
+	_getch();
+	return 0;
+}

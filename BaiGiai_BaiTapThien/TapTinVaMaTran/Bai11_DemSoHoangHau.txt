@@ -1,0 +1,140 @@
+#include<stdio.h>
+#include<conio.h>
+#define MAX 100
+
+void nhapMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+bool kiemTraHoangHau(int a[][MAX], int dong, int cot, int vTDong, int vTcot)
+{
+	int x = a[vTDong][vTcot];
+	// kiem tra dong
+	for (int j = 0; j < cot; j++)
+	{
+		if (a[vTDong][j] > x) return false; // khong phai max
+	}
+	//kiem tra cot
+	for (int i = 0; i < dong; i++)
+	{
+		if (a[i][vTcot] > x) return false;		// khong phai max
+	}
+	//
+	int vtDong1 = vTDong + 1;
+	int vtCot1 = vTcot + 1;
+	while (vtCot1 + 1 < cot && vtDong1 < dong)
+	{
+		if (a[vtCot1][vtDong1] > x)
+		{
+			return false;
+		}
+		vtCot1++;
+		vtDong1++;
+	}
+	//
+	vtDong1 = vTDong - 1;
+	vtCot1 = vTcot - 1;
+	while (vtCot1 - 1 >= 0 && vtDong1 >= 0)
+	{
+		if (a[vtCot1][vtDong1] > x)
+		{
+			return false;
+		}
+		vtCot1--;
+		vtDong1--;
+	}
+	// duong cheo thu 2
+	vtDong1 = vTDong + 1;
+	vtCot1 = vTcot - 1;
+	while (vtCot1 - 1 >= 0 && vtDong1 < dong)
+	{
+		if (a[vtCot1][vtDong1] > x)
+		{
+			return false;
+		}		
+		vtDong1++;
+		vtCot1--;
+	}
+
+	vtDong1 = vTDong - 1;
+	vtCot1 = vTcot + 1;
+	while (vtDong1 - 1 >= 0 && vtCot1 < cot)
+	{
+		if (a[vtCot1][vtDong1] > x)
+		{
+			return false;
+		}
+		vtDong1--;
+		vtCot1++;
+	}
+	return true;
+}
+
+int demHoangHau(int a[][MAX], int dong, int cot)
+{
+	int dem = 0;
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			if (kiemTraHoangHau(a, dong, cot, i, j) == true)
+			{
+				printf_s("\na[%d][%d] = %d la mot so hoang hau \n", i, j, a[i][j]);
+				dem++;
+			}
+		}
+	}
+	return dem;
+}
+
+int main()
+{
+	int a[MAX][MAX];
+	int dong, cot;
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+
+	nhapMaTran(a, dong, cot);
+	xuatMaTran(a, dong, cot);
+
+	int demsoLuongHoangHau = demHoangHau(a, dong, cot);
+	printf_s("\nco tong cong %d so hoang hau trong ma tran", demsoLuongHoangHau);
+
+	_getch();
+	return 0;
+}

@@ -1,0 +1,49 @@
+void ThemMotDong(int a[][MAX], int &dong, int cot, int b[], int ViTriDongCanThem) // b chính là thông tin dòng c?n thêm.
+{
+	for(int i = dong; i > ViTriDongCanThem; i--)
+	{
+		for(int j = 0; j < cot; j++)
+		{
+			a[i][j] = a[i - 1][j];
+		}
+	}
+	dong++;
+	for(int j = 0; j < cot; j++)
+	{
+		a[ViTriDongCanThem][j] = b[j];
+	}
+}
+/* =========================================================== */
+
+/* ========================== CÂU 10 ========================== */
+
+void XoaMotDong(int a[][MAX], int &dong, int cot, int ViTriDongXoa)
+{
+	for(int i = ViTriDongXoa + 1; i < dong; i++)
+	{
+		for(int j = 0; j < cot; j++)
+		{
+			a[i - 1][j] = a[i][j];
+		}
+	}
+	dong--;
+}
+/* =========================================================== */
+
+/* ========================== CÂU 13 ========================== */
+
+void HoanVi(int &x, int &y)
+{
+	int Temp = x;
+	x = y;
+	y = Temp;
+}
+
+// X & Y: Hai dòng c?n hoán v?.
+void HoanVi2Dong(int a[][MAX], int X, int Y, int cot)
+{
+	for(int j = 0; j < cot; j++)
+	{
+		HoanVi(a[X][j], a[Y][j]);
+	}
+}

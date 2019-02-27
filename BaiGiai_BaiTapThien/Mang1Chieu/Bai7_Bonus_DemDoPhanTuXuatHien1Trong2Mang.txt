@@ -1,0 +1,20 @@
+int demPhanTuChiXuatHien1Trong2Mang(int a[], int b[], int na, int nb)
+{
+	int cohieu, dem = 0;
+	for (int i = 0; i < na; i++)
+	{
+		cohieu = 1;
+		for (int j = 0; j < nb; j++)
+		{
+			if (a[i] == b[j])
+			{
+				cohieu = 0;
+				break;
+			}
+		}
+		if (cohieu == 1)
+		{
+			dem++;
+		}
+	}
+}

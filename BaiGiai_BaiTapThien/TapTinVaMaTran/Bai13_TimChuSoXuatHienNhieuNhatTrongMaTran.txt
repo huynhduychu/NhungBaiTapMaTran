@@ -1,0 +1,219 @@
+#include<stdio.h>
+#include<conio.h>
+#define MAX 100
+
+void nhapMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+void hoanVi(int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
+void sapXepTangDan(int a[], int n)
+{
+	for (int i = 0; i <= n; i++)
+	{
+		for (int j = i + 1; j <= n - 1; j++)
+		{
+			if (a[i] > a[j])
+			{
+				hoanVi(a[i], a[j]);
+			}
+		}
+	}
+}
+
+void XuatMang1Chieu(int a[], int n)
+{
+	printf_s("\n");
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("%d\t", a[i]);
+	}
+}
+
+void tachChuSo(int a[][MAX], int dong, int cot)
+{
+
+}
+
+void chuSoXuatHienNhieuNhat(int a[][MAX], int b[], int c[], int d[], int dong, int cot)
+{
+	nhapMaTran(a, dong, cot);
+	xuatMaTran(a, dong, cot);
+	// tach tung chu so cho vao mang b
+
+	int k = 0;
+	for (int i = 0; i < dong * cot; i++)
+	{
+		while (a[i / cot][i % cot] != 0)
+		{
+			b[k] = a[i / cot][i % cot] % 10;
+			a[i / cot][i % cot] = a[i / cot][i % cot] / 10;
+			k++;
+		}
+	}
+
+	printf_s("\nco tong cong %d chu so", k);
+	// sap xep tang dang mang b de lay mang b ra thao tac
+
+	sapXepTangDan(b, k);    
+
+	XuatMang1Chieu(b, k);      // xuat ra test thu
+
+	int dem = 0;
+	int m = 0;
+
+	/// cho tung phan tu phan biet cua mang b vao mang c
+	for (int i = 0; i < k; i++)
+	{
+		if (b[i] != b[i + 1])
+		{
+			dem++;
+			c[m++] = b[i];
+		}
+	}
+
+	XuatMang1Chieu(c, dem);    /// xuat test thu 
+
+	////// dem thu phan tu nao trong c xuat hien nhieu nhat bang cach so sanh mang c voi mang b roi lay bo phan tu dem duoc vao mang d
+
+	int n = 0;
+	for (int i = 0; i < dem; i++)
+	{
+		int dem1 = 0;
+		for (int j = 0; j < k; j++)
+		{
+			if (c[i] == b[j])
+			{
+				dem1++;
+			}
+		}
+		d[n++] = dem1;
+	}
+
+	XuatMang1Chieu(d, dem);    // xuat mang d test thu 
+
+	//// dung linh canh de duyet mang d tim ra so lon nhat trong d 
+	int Max = d[0];
+	for (int i = 0; i < dem; i++)
+	{
+		if (d[i] > Max)
+		{
+			Max = d[i];
+		}
+	}
+
+	printf_s("\nMax :  %d ", Max);     /// xuat test thu 
+	
+	bool coHieu = false;
+	int soNhieuNhat;
+
+	int w;
+
+	for (int i = 0; i < dem; i++)
+	{
+		int dem1 = 0;
+		for (int j = 0; j < k; j++)
+		{
+			if (c[i] == b[j])
+			{
+				dem1++;
+			}
+		}
+		if (dem1 == Max)
+		{
+			soNhieuNhat = c[i];
+			coHieu = true;	
+			w = i;
+			break;
+		}
+	}
+	if (coHieu == true)
+	{
+		printf("\nChu so xuat hien nhieu nhat trong ma tran la : %d ", soNhieuNhat);
+	}
+
+	//// truong hop co them 1 chu so xuat hien nhieu nhat nua  
+	int soNhieuNhat1;
+	bool coHieu1 = false;
+	for (int i = w + 1; i < dem; i++)
+	{
+		int dem1 = 0;
+		for (int j = 0; j < k; j++)
+		{
+			if (c[i] == b[j])
+			{
+				dem1++;
+			}
+		}
+		if (dem1 == Max)
+		{
+			soNhieuNhat1 = c[i];
+			coHieu1 = true;
+			w = i;
+			break;
+		}
+	}
+	if (coHieu1 == true)
+	{
+		printf("\nChu so xuat hien nhieu nhat trong ma tran la : %d ", soNhieuNhat1);
+	}
+
+	//// chuong trinh se phat trien them neu co nhieu hon 2 chu so xuat hien nhieu cung 1 luc 
+
+
+}
+
+int main()
+{
+	int a[MAX][MAX];
+	int b[MAX], c[MAX], d[MAX];
+	int dong, cot;
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+	
+	chuSoXuatHienNhieuNhat(a, b, c, d, dong, cot);
+
+	_getch();
+	return 0;
+}

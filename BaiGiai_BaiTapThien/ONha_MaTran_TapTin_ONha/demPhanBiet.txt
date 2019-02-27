@@ -1,0 +1,23 @@
+int DemSoLuongPhanBiet(float a[][MAX], int dong, int cot)
+{
+	int dem = 0;
+	for(int i = 0; i < dong * cot; i++)
+	{
+		bool Check = true; // M?c d?nh là chua b? trùng.
+		for(int j = i - 1; j >= 0; j--)
+		{
+			if(a[i / cot][i % cot] == a[j / cot][j % cot])
+			{
+				Check = false; // B? trùng.
+				break;
+			}
+		}
+
+		if(Check == true)
+		{
+			printf("%.2f\n", a[i / cot][i % cot]);
+			dem++;
+		}
+	}
+	return dem;
+}

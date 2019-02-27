@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<conio.h>
+#define MAX 100
+
+void nhapMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMang(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+// Giai thich thuat toan
+/// nhung phan tu xung quang theo dong => tuong ung mang o duoi la di[]
+//	-1  -1  -1				[v] 0 
+//	 0	[V]	 0				1   1
+//	 1	 1	 1
+
+/// nhung phan tu xung quang theo cot => tuong ung mang o duoi la dj[]
+//	-1   0   1 
+//	-1	[V]	 1
+//	-1	 0	 1
+
+// V : vi tri xet
+
+bool xetCucTri(int a[][MAX], int dong, int cot, int viTriDong, int viTriCot)
+{
+	int di[] = { -1,-1,-1,  0, 0,  1, 1, 1 };
+	int cj[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+	int viTriXet = a[viTriDong][viTriCot];
+
+	/// dat 2 gia tri co hieu de khi xuong duoi phan tu nao vi pham thi co hieu se tat
+	bool CT = true, CD = true;
+	for (int i = 0; i < 8; i++)
+	{
+		/////xet nhung phan tu xung quang hop le
+		/// nhung phan tu xung quanh hop le la nhung phan tu co so dong > 0 hoac < dong (0 < vitrixet < dong)
+		/// nhung phan tu xung quanh hop le la nhung phan tu co so cot > 0 hoac < cot (0 < vitrixet < cot)
+		if (viTriDong + di[i] >= 0 && viTriDong + di[i] < dong && viTriCot + cj[i] >= 0 && viTriCot + cj[i] < cot)
+		{
+			if (viTriXet < a[viTriDong + di[i]][viTriCot + cj[i]]) CD = false;
+			if (viTriXet > a[viTriDong + di[i]][viTriCot + cj[i]]) CT = false;
+			if (!CD && !CT) break;
+		}
+	}
+	if (!CD && !CT) return false;
+	return true;
+}
+
+int tinhTongCucTri(int a[][MAX], int dong, int cot)
+{
+
+	int Tong = 0;
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			if (xetCucTri(a, dong, cot, i, j))
+			{
+				Tong += a[i][j];
+			}
+		}
+	}
+	return Tong;
+}
+
+int main()
+{
+	int a[MAX][MAX];
+	int dong, cot;
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+
+	nhapMang(a, dong, cot);
+	xuatMang(a, dong, cot);
+
+	int tongCucTri = tinhTongCucTri(a, dong, cot);
+	printf_s("\nTong Tat Ca Cac So Cuc Tri Trong Ma Tran La :  %d", tongCucTri);
+
+	_getch();
+	return 0;
+}

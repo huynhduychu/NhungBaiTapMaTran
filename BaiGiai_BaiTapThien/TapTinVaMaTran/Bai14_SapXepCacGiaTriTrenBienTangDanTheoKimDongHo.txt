@@ -1,0 +1,142 @@
+#include<stdio.h>
+#include<conio.h>
+#define MAX 100
+
+void nhapMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("a[%d][%d] = ", i, j);
+			scanf_s("%d", &a[i][j]);
+		}
+	}
+}
+
+void xuatMaTran(int a[][MAX], int dong, int cot) {
+	for (int i = 0; i < dong; i++)
+	{
+		printf_s("\n");
+		for (int j = 0; j < cot; j++)
+		{
+			printf_s("%d\t", a[i][j]);
+		}
+	}
+}
+
+void XuatMang1Chieu(int a[], int n)
+{
+	printf_s("\n");
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("%d\t", a[i]);
+	}
+}
+
+void hoanVi(int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
+void sapXepTang(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = i + 1; j <= n - 1; j++)
+		{
+			if (a[i] > a[j])
+			{
+				hoanVi(a[i], a[j]);
+			}
+		}
+	}
+}
+
+/// tach => xap xep => bo vao lai 
+
+
+void SapXepGiaTriTrenBienTangDan(int a[][MAX], int dong, int cot, int b[])
+{
+	int k = 0;
+	for (int i = 0; i < cot; i++)
+	{
+		b[k++] = a[0][i];
+	}
+	for (int i = 1; i < dong; i++)
+	{
+		b[k++] = a[i][cot - 1];
+	}
+	for (int i = cot - 2; i >= 0; i--)
+	{
+		b[k++] = a[dong - 1][i];
+	}
+	for (int i = dong - 2; i > 0; i--)
+	{
+		b[k++] = a[i][0];
+	}
+
+	printf_s("\nmang b lay ra nhung phan tu bien tu ma tran\n");
+	XuatMang1Chieu(b, k);   ////xuat test thu 
+	sapXepTang(b, k);
+	printf_s("\nmang b da sap xep\n");
+	XuatMang1Chieu(b, k);
+
+	int k1 = 0;
+	for (int i = 0; i < cot; i++)
+	{
+		a[0][i] = b[k1++];
+		//k1++;	
+	}
+	for (int i = 1; i < dong; i++)
+	{
+		a[i][cot - 1] = b[k1++];
+	}
+	for (int i = cot - 2; i >= 0; i--)
+	{
+		a[dong - 1][i] = b[k1++];
+	}
+	for (int i = dong - 2; i > 0; i--)
+	{
+		a[i][0] = b[k1++];
+	}
+
+	printf_s("\nma tran sau khi da sap xep bien tang dan theo chieu kim dong ho\n");
+	xuatMaTran(a, dong, cot);
+}
+
+int main()
+{
+	int a[MAX][MAX];
+	int dong, cot;
+	int b[MAX];
+	do
+	{
+		printf_s("\nNhap so dong : ");
+		scanf_s("%d", &dong);
+		if (dong < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (dong < 0);
+
+	do
+	{
+		printf_s("\nNhap so cot : ");
+		scanf_s("%d", &cot);
+		if (cot < 0)
+		{
+			printf_s("ban nhap sai so dong ! xin ban kiem tra lai ");
+		}
+	} while (cot < 0);
+
+	nhapMaTran(a, dong, cot);
+	xuatMaTran(a, dong, cot);
+	printf_s("\n");
+
+	SapXepGiaTriTrenBienTangDan(a, dong, cot, b);
+
+	_getch();
+	return 0;
+}

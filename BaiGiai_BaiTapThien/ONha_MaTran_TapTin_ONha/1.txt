@@ -1,0 +1,46 @@
+FILE *FileIn; // Khai ba´o con tro? File.
+
+	// Cho con tro? tro? to´i vu`ng nho´ chu´a file INPUT.TXT
+	FileIn = fopen("INPUT.TXT", "r");
+	
+	// Kiê?m tra xem tâ?p tin co´ tô`n ta?i hay không ?
+	if(!FileIn)
+	{
+		printf("\nKhong tim thay tap tin INPUT.TXT ! Xin kiem tra lai !");
+		getch();
+		return 0;
+	}
+
+	// B2: Ðo?c du~ liê?u tu` tâ?p tin va`o chuong tri`nh.
+
+	// do?c du~ liê?u tu` tâ?p tin va`o chuong tri`nh <=> nhâ?p du~ liê?u tu` ba`n phi´m va`o chuong tri`nh.
+	// ghi du~ liê?u tu` chuong tri`nh ra tâ?p tin <=> xuâ´t du~ liê?u ra ma`n hi`nh.
+
+	int a, b;
+
+	// do?c du~ liê?u va`o chuong tri`nh.
+	fscanf(FileIn, "%d%d", &a, &b);
+
+	// B3: Ðo´ng tâ?p tin
+	fclose(FileIn);
+
+	// printf("\na = %d & b = %d", a, b);
+
+	// Ti`m Max
+	int Max = a > b ? a : b;
+
+	/* GHI DU~ LIÊ?U VA`O OUTPUT.TXT */
+
+	// B1: Mo? file
+	FILE *FileOut;
+	FileOut = fopen("OUTPUT.TXT", "w"); // tu? dô?ng ta?o mo´i nê´u chua co´.
+
+
+	// B2: Ghi file
+	fprintf(FileOut, "\nMax = %d", Max);
+
+	// B3: Ðo´ng file
+	fclose(FileOut);
+
+	getch();
+	return 0;

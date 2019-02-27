@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+int main()
+{
+	int n;
+	int h[] = { 0,1 };
+	do
+	{
+		printf_s("\nnhap vao so can doi:");
+		scanf_s("%d", &n);
+		if (n < 0)
+		{
+			printf_s("\nn phai la so duong ! moi ban nhap lai !!!");
+		}
+	} while (n < 0);
+		
+	int thap_phan = n;  // cai nay la gan n cho so thap phan de n khong bi thay doi 
+	while (thap_phan / 2)
+	{
+		if (thap_phan % 2)
+		{
+			printf_s("%d", h[1]);
+		}
+		else
+		{
+			printf_s("%d", h[0]);
+		}
+		thap_phan /= 2;
+	}
+	printf_s("%d ", thap_phan);
+	_getch();
+	return 0;
+}

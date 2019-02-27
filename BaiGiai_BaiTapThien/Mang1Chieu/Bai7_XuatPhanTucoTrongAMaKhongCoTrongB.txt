@@ -1,0 +1,163 @@
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+
+void nhapMang(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("\nnhap phan tu a[%d]: ", i);
+		scanf_s("%d", &a[i]);
+	}
+}
+
+void XuatMang(int a[], int n) {
+	printf("\n");
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d\t", a[i]);
+	}
+}
+
+void hoanVi(int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
+void sapXepTang(int a[], int n)
+{
+	
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = i + 1; j <= n - 1; j++)
+		{
+			if (a[i] > a[j])
+			{
+				hoanVi(a[i], a[j]);
+			}
+		}
+	}
+}
+
+int nhapX()
+{
+	int x;
+	do
+	{
+		printf_s("\nNhap so x : ");
+		scanf_s("%d", &x);
+		if (x < 0)
+		{
+			printf_s("X am ! moi ban kiem tra lai ! ");
+		}
+	} while (x < 0);
+	return x;
+}
+
+void xoaMotPhanTu(int a[], int &n, int vitrixoa)
+{
+	for (int i = vitrixoa; i < n; i++)
+	{
+		a[i] = a[i + 1];
+		n--;
+	}
+}
+
+int demSoKhongTrung(int a[], int n, int b[], int m)
+{
+	int dem = 0;
+	int k;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			k = 0;
+			if (a[i] == a[j])
+			{
+				break;
+			}
+			else
+			{
+				k = 1;				
+			}
+		}
+		if (k == 1)
+		{
+			dem++;
+		}
+	}
+	return dem;
+}
+
+/// thuat toan nay chi xai dc khi ma so dau tien cua mang a trung voi so dau tien cua mang b
+void nhungPhanTukhongTrung(int a[], int n, int b[], int m, int c[])
+{
+	//int soLuongSoKhongTrung = demSoKhongTrung(a, n, b, m);
+	int k = 0;
+	int soConLai = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{						
+			if (a[i] == a[j])
+			{
+				break;
+			}
+			else
+			{
+				k++;
+				if (k == m)
+				{	
+					k = 0;					
+					c[soConLai++] = a[i];
+				}				
+			}
+		}		
+	}
+	for (int l = 0; l < soConLai; l++)
+	{
+		printf_s("%d ", c[l]);
+	}
+}
+
+int main()
+{
+	int n, m, k;
+	int a[25], b[25], c[25];
+	do
+	{
+		printf_s("\nNhap so phan tu mang n : ");
+		scanf_s("%d", &n);
+		if (n < 1 || n > 26)
+		{
+			printf_s("so phan tu mang khong duoc am ! xin ban kiem tra lai ");
+		}
+	} while (n < 1 || n > 26);
+
+	printf_s("\nMang a ");
+	nhapMang(a, n);
+	XuatMang(a, n);
+
+	do
+	{
+		printf_s("\nNhap so phan tu mang m : ");
+		scanf_s("%d", &m);
+		if (m < 1 || m > 26)
+		{
+			printf_s("so phan tu mang khong duoc am ! xin ban kiem tra lai ");
+		}
+	} while (m < 1 || m > 26);
+	
+	printf_s("\nMang b");
+	nhapMang(b, m);
+	XuatMang(b, m);
+	
+	
+	printf_s("\nNhung phan tu co trong mang A ma khong co trong mang B la : ");
+	nhungPhanTukhongTrung(a, n, b, m, c);	
+
+	_getch();
+	return 0;
+}
